@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>情報　授業用</title>
+  </head>
+<body>
+    <div id="container">
+        <div class="box">
+    <div id="card1" class="card1_class" onclick="clickTest1()"><span id="card1_text" style="display: none;pointer-events: none;">0</span></div>
+    <div id="card2" class="card2_class" onclick="clickTest1()"><span id="card2_text" style="display: none;pointer-events: none;">1</span></div>
+    <div id="card3" class="card3_class" onclick="clickTest1()"><span id="card3_text" style="display: none;pointer-events: none;">2</span></div>
+    <div id="card4" class="card4_class" onclick="clickTest1()"><span id="card4_text" style="display: none;pointer-events: none;">3</span></div>
+    <div id="card5" class="card5_class" onclick="clickTest1()"><span id="card5_text" style="display: none;pointer-events: none;">4</span></div>
+        </div>
+    </div>
+    <button id="start" onclick="start()">リセット</button>
+    <button id="hantei" onclick="hantei()" style="display: none;">判定する</button>
+    
+</body>
+<style>
+    #hantei{
+        background-color: red;
+        color:yellow;
+        font-weight:bolder;
+        font-size: 80px;
+        position:absolute;
+        top:20%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        width:auto;
+        height: auto;
+    }
+    #start{
+        font-size: 50px;
+        position:absolute;
+        top:80%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        width:auto;
+        height: auto;
+    }
+    #container{
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        display:flex;
+        justify-content: center;
+          }
+          .box{
+            width:1000px;
+        margin:5px;
+        display:flex;
+          }
+    #card1{
+        display:flex;
+        width:200px;
+        height: 300px;
+        margin:5px;
+        border:solid 4px black;
+       align-items:center;
+       justify-content: center;
+       font-size:80px;
+       background-color:orange ;
+       color:#eee;
+    }
+    #card1.card1_class{
+        background-color: #338DC9;
+    }
+
+    #card2{
+        display:flex;
+        width:200px;
+        height: 300px;
+        margin:5px;
+        border:solid 4px black;
+       align-items:center;
+       justify-content: center;
+       font-size:80px;
+       background-color:orange ;
+       color:#eee;
+    }
+    #card2.card2_class{
+        background-color: #338DC9;
+    }
+
+    #card3{
+        display:flex;
+        width:200px;
+        height: 300px;
+        margin:5px;
+        border:solid 4px black;
+       align-items:center;
+       justify-content: center;
+       font-size:80px;
+       background-color:orange ;
+       color:#eee;
+    }
+    #card3.card3_class{
+        background-color: #338DC9;
+    }
+
+    #card4{
+        display:flex;
+        width:200px;
+        height: 300px;
+        margin:5px;
+        border:solid 4px black;
+       align-items:center;
+       justify-content: center;
+       font-size:80px;
+       background-color:orange ;
+       color:#eee;
+    }
+    #card4.card4_class{
+        background-color: #338DC9;
+    }
+
+    #card5{
+        display:flex;
+        width:200px;
+        height: 300px;
+        margin:5px;
+        border:solid 4px black;
+       align-items:center;
+       justify-content: center;
+       font-size:80px;
+       background-color:orange ;
+       color:#eee;
+    }
+    #card5.card5_class{
+        background-color: #338DC9;
+    }
+</style>
+<script>
+
+    
+    document.getElementById("card1_text").textContent=Math.floor(Math.random()*100);
+    document.getElementById("card2_text").textContent=Math.floor(Math.random()*100);
+    document.getElementById("card3_text").textContent=Math.floor(Math.random()*100);
+    document.getElementById("card4_text").textContent=Math.floor(Math.random()*100);
+    document.getElementById("card5_text").textContent=Math.floor(Math.random()*100);
+    
+    let card1=[];
+    let count=0;//持っているカードの枚数
+    let countA=0;
+    
+    let arr=["card1","card2","card3","card4","card5",]
+    let arr1=["card1_class","card2_class","card3_class","card4_class","card5_class"]
+    let arr2=["card1_text","card2_text","card3_text","card4_text","card5_text",]
+    let memo1=[];//めくられたカードのidをメモしておく
+    let memo2=[];//めくら手たカードの数字をメモしておく
+    memoA=[];
+    let err="no";
+
+    function clickTest1(){
+        err="no";
+
+        const clickElement=event.target;
+        const ID=clickElement.id;
+        console.log(clickElement,ID);
+        if(memoA.includes(ID)){
+            err="yes";
+            start();
+            window.alert("何回も同じものをクリックしないでください！")
+           
+            
+        }
+        if(err=="no"){
+        
+        if(count==0){
+            //カードが0まい
+            count=1;
+            //console.log(count);
+            console.log("カードの枚数は"+count);
+            target = document.getElementById(ID);
+            target.className = "";
+            if(ID=="card1"){
+                text="card1_text";
+                }else if(ID=="card2"){
+                    text="card2_text";
+                }else if(ID=="card3"){
+                    text="card3_text";
+                }else if(ID=="card4"){
+                    text="card4_text";
+                }else if(ID=="card5"){
+                    text="card5_text";
+                }
+           document.getElementById(text).style.display="block";
+           
+           let num=document.getElementById(text).textContent;
+           memo1.push(ID);
+           memo2.push(num);
+      
+      
+
+        }else if (count==1){
+            //カードが1まい
+            count=2;
+            //console.log(count);
+            console.log("カードの枚数は"+count);
+            
+            target = document.getElementById(ID);
+            target.className = "";
+            if(ID=="card1"){
+                text="card1_text";
+                }else if(ID=="card2"){
+                    text="card2_text";
+                }else if(ID=="card3"){
+                    text="card3_text";
+                }else if(ID=="card4"){
+                    text="card4_text";
+                }else if(ID=="card5"){
+                    text="card5_text";
+                }
+           document.getElementById(text).style.display="block";
+           count=2;
+           document.getElementById("hantei").style.display="block";
+           let num=document.getElementById(text).textContent;
+           memo1.push(ID);
+           memo2.push(num);
+
+        }else if(count==2){
+            err="no";
+            //カードが二枚の時
+            
+
+        }
+        memoA.push(ID);
+        console.log(memoA)
+        err="no";
+    }
+}
+    function hantei(){
+        err="no";
+        document.getElementById("hantei").style.display="none";
+        console.log(memo1,memo2)
+            let tar1=memo1[0];
+            let tar2=memo1[1];
+            let num1=memo2[0];
+            let num2=memo2[1];
+            let obj={tar1:num1,tar2:num2};
+            console.log(obj);
+            console.log(memo1,memo2)
+            if(num1>=num2){
+                memo1=[tar1];
+                memo2=[num1];
+                document.getElementById(tar2).style.display="none";
+
+            }else{
+                memo1=[tar2];
+                memo2=[num2];
+                document.getElementById(tar1).style.display="none";
+
+            }
+            console.log(memo1,memo2);
+            count=1;
+
+        
+
+    }
+    function start(){
+        window.location.reload();
+    }
+</script>
